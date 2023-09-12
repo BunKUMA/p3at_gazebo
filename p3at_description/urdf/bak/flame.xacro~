@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<robot xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+  xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+  xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+  xmlns:xacro="http://ros.org/wiki/xacro"
+  >
+
+  <!-- Chassis -->
+  <link name="flame">
+    <inertial>
+      <mass value="14.0"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.14711667" ixy="0.0" ixz="0.0"
+        iyy="0.334951167" iyz="0.0"
+        izz="0.3978345"/>
+    </inertial>
+    <visual name="flame_visual">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry name="flame">
+        <mesh filename="package://p3at_description/meshes/flame.stl"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="1 1 1"/>
+      </geometry>
+    </collision>
+  </link>

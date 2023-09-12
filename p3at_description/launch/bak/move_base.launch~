@@ -1,0 +1,10 @@
+<launch>
+   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen" clear_params="true">
+    <rosparam file="/home/z_lin/p3at/src/p3at/p3at_description/launch/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="/home/z_lin/p3at/src/p3at/p3at_description/launch/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="/home/z_lin/p3at/src/p3at/p3at_description/launch/local_costmap_params.yaml" command="load" />
+    <rosparam file="/home/z_lin/p3at/src/p3at/p3at_description/launch/global_costmap_params.yaml" command="load" />
+    <rosparam file="/home/z_lin/p3at/src/p3at/p3at_description/launch/base_local_planner_params.yaml" command="load" />
+    <!--remap from="cmd_vel" to="robot/cmd_vel"/-->
+  </node>
+</launch>

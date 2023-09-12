@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="example">
+  <xacro:arg name="gpu" default="false"/>
+  <xacro:property name="gpu" value="$(arg gpu)" />
+  <xacro:arg name="organize_cloud" default="false"/>
+  <xacro:property name="organize_cloud" value="$(arg organize_cloud)" />
+
+  <!-- pioneer3at  -->
+  <xacro:include filename="$(find p3at_description)/urdf/pioneer3at.urdf.xacro"/>
+    <origin xyz="6 10 0" rpy="0 0 0" />
+  <!-- velodyne -->
+  <xacro:include filename="$(find p3at_description)/urdf/velodyne.urdf.xacro"/>
+  <xacro:HDL-32E parent="base_link" name="velodyne" topic="/velodyne_points" organize_cloud="${organize_cloud}" hz="10" samples="440" gpu="${gpu}">
+    <origin xyz="0 0 0.7" rpy="0 0 0" />
+  </xacro:HDL-32E>
+
+  <!-- camera -->
+  <xacro:include filename="$(find p3at_description)/urdf/camera_rc2016.urdf.xacro"/>
+  <xacro:camera_rc2016 parent="base_link" name="camera" topic="/camera/image_raw">
+    <origin xyz="0.0675 0.2 0.54" rpy="0 -0 1.5707" />
+  </xacro:camera_rc2016>
+
+
+
+
+</robot>

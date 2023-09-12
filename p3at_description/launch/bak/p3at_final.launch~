@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<launch>
+
+  <param name="use_sim_time" value="true"/>
+
+  <arg name="paused" default="false"/>
+  <arg name="gui" default="true"/>
+  <arg name="verbose" default="false"/>
+  <arg name="world_name" default="USARGazebo.world"/>
+  <!--arg name="world_name" default="iroiro"/-->
+
+  <!-- Launch gazebo -->
+  <node name="gazebo" pkg="gazebo_ros" type="gzserver" respawn="false" output="screen" args="$(find p3at_gazebo)/worlds/$(arg world_name)"/>
+  <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" respawn="false" output="screen"/>
+  <include file="$(find p3at_description)/launch/spawn_p3at_RC2016.launch">
+    <arg name="robot_name" value="robot"/>
+    <arg name="pose_x" value="2"/>
+    <arg name="pose_y" value=" 0"/>
+    <arg name="pose_yaw" default="1.5707"/>
+  </include>
+  <node name="rviz" pkg="rviz" type="rviz"  />
+
+
+
+</launch>
+
+
