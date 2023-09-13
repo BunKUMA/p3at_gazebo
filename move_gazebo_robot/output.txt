@@ -1,2 +1,0 @@
-/path/to/file1.npy [1, 5] [2, 3]
-/path/to/file2.npy [1, 5] [2, 3]

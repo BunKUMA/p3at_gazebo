@@ -23,7 +23,7 @@ radius_array = np.arange(4,7,step)
 
 coordinate_robot = []
 for radius in radius_array:
-    for angle_degree in range(0,181,10):
+    for angle_degree in range(0,181,5):
         angle_radians = math.radians(angle_degree)
         
         # 使用三角函数计算点的坐标
