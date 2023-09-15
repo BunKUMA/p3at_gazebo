@@ -3,7 +3,7 @@ import math
 import numpy as np
 from iou_3d import get_3d_box, box3d_iou
 
-folders_path = '/home/wen/workspace/predictions'
+folders_path = '../data_space/predictions'
 
 file_list = [i for i in os.listdir(folders_path) if i.endswith('.npy')]
 
