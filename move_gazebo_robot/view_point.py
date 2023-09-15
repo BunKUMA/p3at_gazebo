@@ -1,7 +1,8 @@
 import open3d as o3d
 import numpy as np
 
-# 创建一个空的点云
+# 创建点云
+point_cloud = np.load()
 pcd = o3d.geometry.PointCloud()
 
 # 填充点云数据（假设你有点云数据）

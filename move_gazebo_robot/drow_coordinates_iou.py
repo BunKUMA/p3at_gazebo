@@ -16,7 +16,7 @@ with open('coordinates_iou.txt', 'r') as file:
         x, y= float(parts[0]), float(parts[1])
         radius = np.round(np.sqrt((11-x)**2 + (11-y)**2), decimals=1)
         # 存在半径的计算误差
-        if (radius*10)%10 == 4: # 4.4m
+        if (radius*10)%10 == 4 or (radius*10)%10 == 9: # 4.4m
             radius += 0.1
         if (radius*10)%10 == 6: # 4.6m
             radius -= 0.1
@@ -37,13 +37,13 @@ for radius in unique_radius:
     round_data = round_data[sorted_indices]
     x = round_data[:,0]
     y = round_data[:,1]
-    iou = round_data[:,2] * 10
+    iou = [i * 10 for i in round_data[:,2]]
     ax.scatter(x, y, iou, label=f'radius:{radius}m')
     
 ax.set_xlabel('x coordinates') #设置x轴名称 x label
 ax.set_ylabel('y coordinates') #设置y轴名称 y label
 ax.set_zlabel('iou') #设置z轴名称 z label
-# ax.legend() #自动检测要在图例中显示的元素，并且显示
+ax.legend() #自动检测要在图例中显示的元素，并且显示
 
 # 设置相同的刻度
 ax.set_aspect('equal')  # 设置刻度相同
