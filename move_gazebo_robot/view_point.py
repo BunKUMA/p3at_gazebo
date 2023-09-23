@@ -55,12 +55,8 @@ for predicte in predicte_result:
         break
     predicte = predicte[1:-1].astype(np.float32)
 
-    h1,w1,l1 = corret_result[3],corret_result[4],corret_result[5]
-    h2,w2,l2 = predicte[3],predicte[4],predicte[5]
-    yaw1 = corret_result[6]
-    yaw2 = predicte[6]
-    x1,y1,z1 = corret_result[0],corret_result[1],corret_result[2]
-    x2,y2,z2 = predicte[0],predicte[1],predicte[2]
+    x1, y1, z1, h1, w1, l1, yaw1 = corret_result
+    x2, y2, z2, h2, w2, l2, yaw2 = predicte
 
     # 计算3d iou
     # get_3d_box(box_size(length,wide,height), heading_angle, center)
@@ -71,12 +67,6 @@ for predicte in predicte_result:
 max_indices = np.argmax(iou_arr, axis=0)
 predicte = predicte_result[max_indices][1:-1].astype(np.float32)
 
-h1,w1,l1 = corret_result[3],corret_result[4],corret_result[5]
-h2,w2,l2 = predicte[3],predicte[4],predicte[5]
-yaw1 = corret_result[6]
-yaw2 = predicte[6]
-x1,y1,z1 = corret_result[0],corret_result[1],corret_result[2]
-x2,y2,z2 = predicte[0],predicte[1],predicte[2]
 
 # 创建点云
 point_cloud = np.load(os.path.join(lidar_folders_path, file_name))
@@ -121,11 +111,11 @@ faces = [
 ]
 
 mesh = o3d.geometry.TriangleMesh()
-mesh.vertices = o3d.utility.Vector3dVector(calculateBox(x1,y1,z1,h1,w1,l1,yaw1))
+mesh.vertices = o3d.utility.Vector3dVector(calculateBox(*corret_result))
 mesh.triangles = o3d.utility.Vector3iVector(faces)
 
 mesh2 = o3d.geometry.TriangleMesh()
-mesh2.vertices = o3d.utility.Vector3dVector(calculateBox(x2,y2,z2,h2,w2,l2,yaw2))
+mesh2.vertices = o3d.utility.Vector3dVector(calculateBox(*predicte))
 mesh2.triangles = o3d.utility.Vector3iVector(faces)
 mesh2.paint_uniform_color([1.0, 0.5, 0.0])  # 设置橙色
 

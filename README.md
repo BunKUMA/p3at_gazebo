@@ -1,6 +1,8 @@
 # p3at_gazebo
 Using the p3at bot in gazebo
 
+![](https://github.com/BunKUMA/p3at_gazebo/blob/main/Screenshot.png)
+
 ## starting in the following :
 
 ```bash

@@ -9,7 +9,7 @@
   <arg name="world_name" default="$(find p3at_description)/worlds/volvoS90_in_11_11.world"/>
 
   <arg name="rviz_name" default="-d $(find p3at_description)/rviz/velodyne_and_robot.rviz"/>
-  <arg name="robot_xacro" default="$(find p3at_description)/urdf/robot.urdf.xacro"/>
+  <arg name="robot_name" default="$(find p3at_description)/urdf/robot.urdf.xacro"/>
 
   <!-- Start gazebo and load the world -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch" >
@@ -23,23 +23,19 @@
   </include>
 
   <!-- Generate robot -->
-  <arg name="robot_name" default="robot"/>
-  <arg name="pose_x" default="11"/>
-  <arg name="pose_y" default="5"/>
-  <arg name="pose_yaw" default="1.570"/>
   <arg name="gpu" default="false"/>
   <arg name="organize_cloud" default="false"/>
-  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(arg robot_xacro)'" />
-  <node name="spawn_model_$(arg robot_name)" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model $(arg robot_name)  -x $(arg pose_x) -y $(arg pose_y) -Y $(arg pose_yaw)" />
-
-  <!-- Conversion -->
-  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" >
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(arg robot_name)'" />
+  <node pkg="gazebo_ros" type="spawn_model" name="spawn_model" args="-urdf -param /robot_description -model example"/>
+    <!-- Conversion -->
+  <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher"/>
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
     <param name="publish_frequency" type="double" value="30.0" />
   </node>
 
   <!-- RViz -->
   <arg name="rviz" default="true"/>
   <node if="$(arg rviz)" pkg="rviz" type="rviz" name="$(anon rviz)" respawn="false" output="screen" args="$(arg rviz_name)" />
+
 
 </launch>

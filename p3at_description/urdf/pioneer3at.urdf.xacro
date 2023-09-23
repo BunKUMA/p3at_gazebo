@@ -9,24 +9,6 @@ name="pioneer3at">
 
 <!-- Chassis -->
 	<link name="base_link">
-
-
-
-		<inertial>
-			<!-- default -->
-			<!-- P3AT 18.6kg plus three batteries @ 2.4kg each  minus four wheels @ 1.4 kg ea and top plate @ 0.1 kg-->
-			<mass value="21.5"/> 
-			<origin xyz="-0.1 0 0.177"/>
-			<inertia ixx="0.3338" ixy="0.0"     ixz="0.0"
-				              iyy="0.4783"  iyz="0.0"
-				                            izz="0.3338"/>
-			<!-- from new3.world of p3at -->
-			<!-- <mass value="14.27"/> 
-			<origin xyz="-0.1 0 0.177"/>
-			<inertia ixx="0.192883" ixy="-0.00357616"     ixz="-0.0064908"
-				              iyy="0.371329"  iyz="-0.019232"
-				                            izz="0.4098"/>		 -->
-		</inertial>
 		<visual>
 			<origin xyz="0 0 0.177" rpy="0 0 0"/>
 			<geometry name="pioneer_geom">
@@ -47,6 +29,25 @@ name="pioneer3at">
 		<material value="Gazebo/Red"/>
 	</gazebo>
 
+	<link name="dummy_link">
+		<!-- Defining the inertia properties of virtual links -->
+		<inertial>
+				<!-- default -->
+				<!-- P3AT 18.6kg plus three batteries @ 2.4kg each  minus four wheels @ 1.4 kg ea and top plate @ 0.1 kg-->
+				<mass value="21.5"/> 
+				<origin xyz="-0.1 0 0.177"/>
+				<inertia ixx="0.3338" ixy="0.0"     ixz="0.0"
+								iyy="0.4783"  iyz="0.0"
+												izz="0.3338"/>
+		</inertial>
+	</link>
+	<joint name="dummy_joint" type="fixed">
+		<origin rpy="0 0 0" xyz="0 0 0"/>
+		<parent link="base_link"/> <!-- Connect to the actual link -->
+		<child link="dummy_link"/>   <!-- Connect to the dummy link -->
+	</joint>
+
+	
 <!-- Top -->
 	<link name="top_plate">
 		<inertial>

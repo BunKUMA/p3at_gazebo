@@ -7,7 +7,7 @@
 
   <!-- pioneer3at  -->
   <xacro:include filename="$(find p3at_description)/urdf/pioneer3at.urdf.xacro"/>
-    <origin xyz="6 10 0" rpy="0 0 0" />
+    
   <!-- velodyne -->
   <xacro:include filename="$(find p3at_description)/urdf/velodyne.urdf.xacro"/>
   <xacro:HDL-32E parent="base_link" name="velodyne" topic="/velodyne_points" organize_cloud="${organize_cloud}" hz="10" samples="440" gpu="${gpu}">

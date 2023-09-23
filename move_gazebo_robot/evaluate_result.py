@@ -45,14 +45,10 @@ with open('coordinates_iou.txt', 'w') as file:
             if len(predicte) == 0:
                 break
             predicte = predicte[1:-1].astype(np.float32)
-        
-            h1,w1,l1 = corret_result[3],corret_result[4],corret_result[5]
-            h2,w2,l2 = predicte[3],predicte[4],predicte[5]
-            yaw1 = corret_result[6]
-            yaw2 = predicte[6]
-            x1,y1,z1 = corret_result[0],corret_result[1],corret_result[2]
-            x2,y2,z2 = predicte[0],predicte[1],predicte[2]
-
+            
+            x1, y1, z1, h1, w1, l1, yaw1 = corret_result
+            x2, y2, z2, h2, w2, l2, yaw2 = predicte
+            
             # 计算3d iou
             # get_3d_box(box_size(length,wide,height), heading_angle, center)
             corners_3d_ground  = get_3d_box((l1,w1,h1), yaw1, (x1,y1,z1)) 
