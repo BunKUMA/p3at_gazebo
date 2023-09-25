@@ -7,7 +7,7 @@ def loadCoordinatesIouTxt():
     data = []
 
     # 打开文件以读取数据
-    with open('coordinates_iou.txt', 'r') as file:
+    with open('robot_coordiantes.txt', 'r') as file:
         # 逐行读取文件内容
         for line in file:
         # 按照特定的格式解析每行数据
