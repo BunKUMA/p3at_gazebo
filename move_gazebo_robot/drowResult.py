@@ -33,7 +33,7 @@ def loadCoordinatesIouTxt():
     return unique_radius, sorted_data
 
 
-if __name__ in "__main__":
+if __name__ == "__main__":
 
     unique_radius, sorted_data = loadCoordinatesIouTxt()
     

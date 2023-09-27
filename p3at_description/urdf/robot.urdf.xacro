@@ -16,9 +16,15 @@
 
   <!-- camera -->
   <xacro:include filename="$(find p3at_description)/urdf/camera_rc2016.urdf.xacro"/>
-  <xacro:camera_rc2016 parent="base_link" name="camera" topic="/camera/image_raw">
+  <xacro:camera_rc2016 parent="base_link" name="rc2016" topic="/camera/image_raw">
     <origin xyz="0.0675 0.2 0.54" rpy="0 -0 1.5707" />
-  </xacro:camera_rc2016>
+  </xacro:camera_rc2016>  
+
+  <!-- realsense d435 -->
+  <xacro:include filename="$(find realsense_gazebo_plugin)/urdf/realsense_d435.urdf.xacro"/>
+  <xacro:realsense_d435 parent="base_link">
+    <origin xyz="0.0 0 0.54" rpy="1.5707 0 1.5707" />
+  </xacro:realsense_d435>
 
 
 

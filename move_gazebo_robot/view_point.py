@@ -2,7 +2,7 @@ import open3d as o3d
 import numpy as np
 import os
 import math
-from drow_coordinates_iou import loadCoordinatesIouTxt
+from drowResult import loadCoordinatesIouTxt
 from iou_3d import get_3d_box, box3d_iou
 
 
