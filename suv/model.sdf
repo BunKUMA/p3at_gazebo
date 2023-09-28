@@ -1,0 +1,22 @@
+<sdf version='1.5'>
+  <model name="suv">
+    <static>true</static>
+    <link name="suv">
+      <collision name="collision">
+        <geometry>
+          <mesh>
+            <uri>model://suv/meshes/STL/suv.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>model://suv/meshes/STL/suv.stl</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+</sdf>
