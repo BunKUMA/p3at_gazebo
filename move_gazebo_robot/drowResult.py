@@ -1,19 +1,35 @@
+import os 
 import numpy as np
 import matplotlib.pyplot as plt 
 from mpl_toolkits import mplot3d
 
-def loadCoordinatesIouTxt():
+def loadIou(path):
+    # 创建一个空列表来存储数据
+    data = []
+    # 打开文件以读取数据
+    with open(path, 'r') as file:
+        # 逐行读取文件内容
+        for line in file:
+        # 按照特定的格式解析每行数据
+            parts = line.strip().split()
+            # 将解析后的数据
+            iou= float(parts[1])
+            data.append(iou)
+    return np.array(data)
+
+
+def loadCoordiantes(iou_arr, path):
     # 创建一个空列表来存储数据
     data = []
 
     # 打开文件以读取数据
-    with open('robot_coordiantes.txt', 'r') as file:
+    with open(path, 'r') as file:
         # 逐行读取文件内容
         for line in file:
         # 按照特定的格式解析每行数据
             parts = line.strip().split()
             # 将解析后的数据添加到列表中
-            array = np.array(list(map(float,parts)))
+            array = np.array(list(map(float,parts[:2])))
             
             x, y= float(parts[0]), float(parts[1])
             radius = np.round(np.sqrt((11-x)**2 + (11-y)**2), decimals=1)
@@ -24,35 +40,44 @@ def loadCoordinatesIouTxt():
                 radius -= 0.1
             
             data.append(np.append(array,radius))
-    array = np.array(data)
-    sorted_indices = np.argsort(array[:, 3])
-    sorted_data = array[sorted_indices]
-
-    unique_radius = np.unique(sorted_data[:,3])
     
-    return unique_radius, sorted_data
+    array = np.hstack((np.array(data), iou_arr[:,np.newaxis]))
+    
+
+    return array
 
 
 if __name__ == "__main__":
-
-    unique_radius, sorted_data = loadCoordinatesIouTxt()
+    
+    folders_path = '/home/wen/catkin_ws/src/p3at_gazebo/data_space/gazebo_lidar/09291529'
+    
+    iou_path = os.path.join(folders_path,'iou.txt')
+    coordiantes_path = os.path.join(folders_path,'robot_coordiantes.txt')
+    
+    iou_arr = loadIou(iou_path)
+    
+    data = loadCoordiantes(iou_arr, coordiantes_path)
+    
+    condition1 = data[:,3] == 0.0    #   iou==0.0
+    condition2 = (data[:,3] > 0.0) & (data[:,3] < 0.3)
+    condition3 = data[:,3] >= 0.3 
+    conditions = [condition1, condition2, condition3]
+    colors = ['red','orange','green']
+    labels = ['non-detectable', 'hard-detectable', 'detectable']
     
     fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
+    ax = fig.add_subplot()
 
-    for radius in unique_radius:
-        round_data = sorted_data[sorted_data[:,3]==radius]
-        sorted_indices = np.argsort(round_data[:,1])
-        round_data = round_data[sorted_indices]
+    for condition, color, label in zip(conditions, colors,labels):
+        round_data = data[condition]
         x = round_data[:,0]
         y = round_data[:,1]
-        iou = [i * 10 for i in round_data[:,2]]
-        ax.scatter(x, y, iou, label=f'radius:{radius}m')
+        ax.scatter(x, y, c=color,label=label)
         
     ax.set_xlabel('x coordinates') #设置x轴名称 x label
     ax.set_ylabel('y coordinates') #设置y轴名称 y label
-    ax.set_zlabel('iou') #设置z轴名称 z label
-    ax.legend() #自动检测要在图例中显示的元素，并且显示
+    # ax.set_zlabel('iou') #设置z轴名称 z label
+    ax.legend(loc='upper right',bbox_to_anchor=(2.0,1.0)) #自动检测要在图例中显示的元素，并且显示
 
     # 设置相同的刻度
     ax.set_aspect('equal')  # 设置刻度相同

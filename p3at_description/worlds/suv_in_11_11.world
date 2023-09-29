@@ -85,13 +85,13 @@
       <elevation>0</elevation>
       <heading_deg>0</heading_deg>
     </spherical_coordinates>
-    <model name='volvoS90'>
+    <model name='suv'>
       <static>1</static>
-      <link name='volvoS90'>
+      <link name='suv'>
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>model://volvoS90/meshes/STL/volvoS90.stl</uri>
+              <uri>model://suv/meshes/STL/suv.stl</uri>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -111,7 +111,7 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>model://volvoS90/meshes/STL/volvoS90.stl</uri>
+              <uri>model://suv/meshes/STL/suv.stl</uri>
             </mesh>
           </geometry>
         </visual>
@@ -119,7 +119,7 @@
         <enable_wind>0</enable_wind>
         <kinematic>0</kinematic>
       </link>
-      <!-- pose volvoS90 -->
+      <!-- pose suv -->
       <pose frame=''>11 11 0 0 -0 0</pose>
     </model>
     <state world_name='default'>
@@ -127,12 +127,12 @@
       <real_time>73 86625287</real_time>
       <wall_time>1666943099 57322368</wall_time>
       <iterations>67510</iterations>
-      <model name='volvoS90'>
-    <!-- pose volvoS90 -->
+      <model name='suv'>
+    <!-- pose suv -->
         <pose frame=''>11 11 0 0 -0 0</pose>
         <scale>1 1 1</scale>
-        <link name='volvoS90'>
-    <!-- pose volvoS90 -->
+        <link name='suv'>
+    <!-- pose suv -->
           <pose frame=''>11 11 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>

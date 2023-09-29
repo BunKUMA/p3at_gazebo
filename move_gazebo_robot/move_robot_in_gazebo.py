@@ -5,12 +5,14 @@ import sys
 import time
 import math
 import time
+import ros_numpy 
 
 import numpy as np
 import rospy
 import sensor_msgs.point_cloud2 as pc2
-from sensor_msgs.msg import PointCloud2
-
+from sensor_msgs.msg import PointCloud2 ,Image
+from PIL import Image as PILImage
+from PIL import ImageEnhance
 
             
 def moveRobot(radius, angle_radians):
@@ -55,18 +57,42 @@ def moveRobot(radius, angle_radians):
     return x, y
 
 
-def savePointCloud(file_name, savepath):
+def savePointCloud(file_name, savepath, topic_name:str, folder:str = 'lidar'):
     """订阅点云并保存为npy"""
     # get_point
-    msg = rospy.wait_for_message("/velodyne_points", PointCloud2, timeout=None)
+    msg = rospy.wait_for_message(topic_name, PointCloud2, timeout=None)
 
     ##  Get pointcloud from ros    
     point_cloud = pc2.read_points(msg, field_names=(
         "x", "y", "z", "intensity"))#, skip_nans=False
 
+    savepath_folder = os.path.join(savepath, folder)
+    if not os.path.exists(savepath_folder):
+        os.makedirs(savepath_folder)
+    
     # save_point
-    np.save(os.path.join(savepath,"lidar",file_name),np.array(list(point_cloud), dtype=np.float32)[:,:3]) #去除intensity
-    print("{} saved".format(file_name))
+    np.save(os.path.join(savepath, folder ,file_name),np.array(list(point_cloud), dtype=np.float32)[:,:3]) #去除intensity
+    print("{}/{} saved".format(folder,file_name))
+
+    
+    
+def saveImage(img_file_name, savepath, topic_name:str, folder:str = 'depth_map'):
+    """订阅img并保存为png"""
+    # get_point
+    msg = rospy.wait_for_message(topic_name, Image, timeout=None)
+    
+    np_img = ros_numpy.numpify(msg)
+        
+    # 使用PIL保存图像到文件
+    image_pil = PILImage.fromarray(np_img)
+    
+    savepath_folder = os.path.join(savepath, folder)
+    if not os.path.exists(savepath_folder):
+        os.makedirs(savepath_folder)
+    
+    # save_img
+    image_pil.save(os.path.join(savepath, folder ,img_file_name+'.png'))
+    print("{}/{} saved".format(folder,img_file_name))
 
 
 
@@ -77,7 +103,6 @@ if __name__ == "__main__":
 
     local_time = str(time.strftime('%m%d%H%M', time.localtime()))
     savepath = '/home/wen/catkin_ws/src/p3at_gazebo/data_space/gazebo_lidar/' + local_time
-    os.makedirs(os.path.join(savepath,'lidar'))
     
     target_position = (11, 11)  # 目标位置
 
@@ -111,7 +136,13 @@ if __name__ == "__main__":
             file_name_array.append(file_name)   # 记录文件名
             
             # 保存点云, x,y,z
-            savePointCloud(file_name, savepath)
+            savePointCloud(file_name, savepath, "/velodyne_points")
+            savePointCloud(file_name, savepath, "/d455/camera/depth_registered/points",folder='depth_points')
+            
+            # 保存深度图和image
+            img_file_name = 'image_' + str(index)
+            saveImage(img_file_name, savepath, "/d455/camera/depth/image_raw")
+            saveImage(img_file_name, savepath, "/d455/camera/color/image_raw", folder='img')
             
             # 进度条
             print('{0}/{1}'.format(index,n))

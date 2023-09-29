@@ -5,11 +5,15 @@ import numpy as np
 target_position = (11,11)
 x = target_position[0]
 y = target_position[1]
-target_h = 1.445
-target_w = 1.879
-target_l = 4.963
+v60_h = 1.445
+v60_w = 1.879
+v60_l = 4.963
 
-folders_path = '/home/wen/catkin_ws/src/p3at_gazebo/data_space/gazebo_lidar/09251722'
+target_h = 1.684
+target_w = 1.843
+target_l = 4.646
+
+folders_path = '/home/wen/catkin_ws/src/p3at_gazebo/data_space/gazebo_lidar/09291529'
 
 input_path =os.path.join(folders_path, 'robot_coordiantes.txt') 
 output_path = os.path.join(folders_path, 'label.txt')

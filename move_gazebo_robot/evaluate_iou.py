@@ -22,7 +22,7 @@ def evaluate_iou(predicte_result, corret_result):
         iou_arr.append(iou_3d)
         
     if iou_arr == []:
-        iou =0.0
+        iou = -1
     else:
         iou = max(iou_arr)
         
@@ -31,7 +31,7 @@ def evaluate_iou(predicte_result, corret_result):
 
 
 if __name__ == "__main__":
-    folders_path = '/home/wen/catkin_ws/src/p3at_gazebo/data_space/gazebo_lidar/09251722'
+    folders_path = '/home/wen/catkin_ws/src/p3at_gazebo/data_space/gazebo_lidar/09291529'
     
     predicte_file_name_arr , iou_arr = [], []
     with open(os.path.join(folders_path,'label.txt')) as labels:

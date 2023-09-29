@@ -6,7 +6,7 @@
   <arg name="headless" default="false"/>
   <arg name="debug" default="false"/>
   <arg name="verbose" default="false"/>
-  <arg name="world_name" default="$(find p3at_description)/worlds/volvoS90_in_11_11.world"/>
+  <arg name="world_name" default="$(find p3at_description)/worlds/suv_in_11_11.world"/>
 
   <arg name="rviz_name" default="-d $(find p3at_description)/rviz/velodyne_and_robot.rviz"/>
   <arg name="robot_xacro" default="$(find p3at_description)/urdf/robot.urdf.xacro"/>
