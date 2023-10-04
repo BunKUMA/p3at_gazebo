@@ -3,7 +3,7 @@ import numpy as np
 from iou_3d import get_3d_box, box3d_iou
 
 
-def evaluate_iou(predicte_result, corret_result):
+def calculate_iou(predicte_result, corret_result):
     iou_arr = []
     # 多个预测结果选最好的
     for predicte in predicte_result:
@@ -30,9 +30,8 @@ def evaluate_iou(predicte_result, corret_result):
 
 
 
-if __name__ == "__main__":
-    folders_path = '/home/wen/catkin_ws/src/p3at_gazebo/data_space/gazebo_lidar/09291529'
-    
+# folders_path = '/home/wen/catkin_ws/src/p3at_gazebo/data_space/gazebo_lidar/volvoS90'
+def evaluate_iou(folders_path):
     predicte_file_name_arr , iou_arr = [], []
     with open(os.path.join(folders_path,'label.txt')) as labels:
         # 每行遍历标签
@@ -47,7 +46,7 @@ if __name__ == "__main__":
             predicte_result = predicte_result[0]
             
             # 计算iou
-            iou = evaluate_iou(predicte_result, corret_result)
+            iou = calculate_iou(predicte_result, corret_result)
             
             # 记录预测结果文件名和iou
             iou_arr.append(iou)
@@ -58,4 +57,6 @@ if __name__ == "__main__":
     output_path = os.path.join(folders_path,'iou.txt')
     np.savetxt(output_path, data, delimiter=' ', fmt='%s')  # 数据分隔符为空格，以及格式为字符串格式%s
     
-    print('Done')
+    
+if __name__ == "__main__":
+    pass

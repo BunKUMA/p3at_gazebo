@@ -47,10 +47,9 @@ def loadCoordiantes(iou_arr, path):
     return array
 
 
-if __name__ == "__main__":
     
-    folders_path = '/home/wen/catkin_ws/src/p3at_gazebo/data_space/gazebo_lidar/09291529'
-    
+# folders_path = '/home/wen/catkin_ws/src/p3at_gazebo/data_space/gazebo_lidar/volvoS90'
+def drowResult(folders_path):
     iou_path = os.path.join(folders_path,'iou.txt')
     coordiantes_path = os.path.join(folders_path,'robot_coordiantes.txt')
     
@@ -82,4 +81,11 @@ if __name__ == "__main__":
     # 设置相同的刻度
     ax.set_aspect('equal')  # 设置刻度相同
 
-    plt.show() #图形可视化
+    output = os.path.join(folders_path,'result_img')
+    os.makedirs(output, exist_ok=True)
+        
+    plt.savefig(os.path.join(output,'result.png'))
+    # plt.show() #图形可视化
+
+if __name__ == "__main__":
+    pass

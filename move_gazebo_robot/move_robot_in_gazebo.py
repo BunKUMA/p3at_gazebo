@@ -158,5 +158,6 @@ if __name__ == "__main__":
     output_path = os.path.join(savepath, "robot_coordiantes.txt")
     np.savetxt(output_path, data, delimiter=' ', fmt='%s')  # 数据分隔符为空格，以及格式为字符串格式%s
     print("log is saved :{}".format(output_path))
+    print("------------------------------------------")
     
     
