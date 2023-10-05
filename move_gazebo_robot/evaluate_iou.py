@@ -32,30 +32,34 @@ def calculate_iou(predicte_result, corret_result):
 
 # folders_path = '/home/wen/catkin_ws/src/p3at_gazebo/data_space/gazebo_lidar/volvoS90'
 def evaluate_iou(folders_path):
-    predicte_file_name_arr , iou_arr = [], []
-    with open(os.path.join(folders_path,'label.txt')) as labels:
-        # 每行遍历标签
-        for line in labels:
-            parts = line.strip().split()    # 去除回车和换行符
-            lidar_file_name, corret_result = parts[0], np.array(parts[1:],dtype=np.float32)
-            
-            # 加载预测的结果
-            predicte_file_name = 'predicte_'+lidar_file_name 
-            predicte_file_path = os.path.join(folders_path, 'predictions',predicte_file_name + '.npy')
-            predicte_result = np.load(predicte_file_path)
-            predicte_result = predicte_result[0]
-            
-            # 计算iou
-            iou = calculate_iou(predicte_result, corret_result)
-            
-            # 记录预测结果文件名和iou
-            iou_arr.append(iou)
-            predicte_file_name_arr.append(predicte_file_name)
+    output_iou_name = ['iou.txt', 'iou_dep.txt']
+    output_prediction_name = ['predictions', 'predictions_depthmap']
     
-    # 保存在txt
-    data = np.column_stack((predicte_file_name_arr, iou_arr))
-    output_path = os.path.join(folders_path,'iou.txt')
-    np.savetxt(output_path, data, delimiter=' ', fmt='%s')  # 数据分隔符为空格，以及格式为字符串格式%s
+    for iou_name, prediction_name in zip(output_iou_name, output_prediction_name):
+        predicte_file_name_arr , iou_arr = [], []
+        with open(os.path.join(folders_path,'label.txt')) as labels:
+            # 每行遍历标签
+            for line in labels:
+                parts = line.strip().split()    # 去除回车和换行符
+                lidar_file_name, corret_result = parts[0], np.array(parts[1:],dtype=np.float32)
+                
+                # 加载预测的结果
+                predicte_file_name = 'predicte_'+lidar_file_name 
+                predicte_file_path = os.path.join(folders_path, prediction_name,predicte_file_name + '.npy')
+                predicte_result = np.load(predicte_file_path)
+                predicte_result = predicte_result[0]
+                
+                # 计算iou
+                iou = calculate_iou(predicte_result, corret_result)
+                
+                # 记录预测结果文件名和iou
+                iou_arr.append(iou)
+                predicte_file_name_arr.append(predicte_file_name)
+        
+        # 保存在txt
+        data = np.column_stack((predicte_file_name_arr, iou_arr))
+        output_path = os.path.join(folders_path, iou_name)
+        np.savetxt(output_path, data, delimiter=' ', fmt='%s')  # 数据分隔符为空格，以及格式为字符串格式%s
     
     
 if __name__ == "__main__":

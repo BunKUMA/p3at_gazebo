@@ -65,6 +65,8 @@ if __name__ == '__main__':
         if project_name not in car:
             # raise KeyError(f"The data of '{project_name}' does not exist")
             project_name = 'suv'
+        elif project_name == 'test':
+            continue
         target_h = car[project_name]['h']
         target_w = car[project_name]['w']
         target_l = car[project_name]['l']

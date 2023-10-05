@@ -70,8 +70,29 @@ def savePointCloud(file_name, savepath, topic_name:str, folder:str = 'lidar'):
     if not os.path.exists(savepath_folder):
         os.makedirs(savepath_folder)
     
+    #   去除intensity
+    point_cloud = np.array(list(point_cloud), dtype=np.float32)[:,:3]
+    
+    #   距离点云需要旋转
+    if folder == 'depth_points':
+        # 绕 Y 轴顺时针旋转 90 度
+        angle_y = np.radians(90)  # 将角度转换为弧度
+        rotation_y = np.array([[np.cos(angle_y), 0, np.sin(angle_y)],
+                            [0, 1, 0],
+                            [-np.sin(angle_y), 0, np.cos(angle_y)]])
+        rotated_points = np.dot(point_cloud, rotation_y.T)
+        # 绕 X 轴逆时针旋转 90 度
+        angle_x = np.radians(-90)  # 将角度转换为弧度
+        rotation_x = np.array([[1, 0, 0],
+                            [0, np.cos(angle_x), -np.sin(angle_x)],
+                            [0, np.sin(angle_x), np.cos(angle_x)]])
+        rotated_points = np.dot(rotated_points, rotation_x.T)
+
+        nan_mask = np.isnan(rotated_points).any(axis=1)
+        point_cloud = rotated_points[~nan_mask]
+    
     # save_point
-    np.save(os.path.join(savepath, folder ,file_name),np.array(list(point_cloud), dtype=np.float32)[:,:3]) #去除intensity
+    np.save(os.path.join(savepath, folder ,file_name),point_cloud)
     print("{}/{} saved".format(folder,file_name))
 
     
