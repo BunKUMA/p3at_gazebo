@@ -50,7 +50,7 @@ def createBox(ax, corret_result,edgecolor,linewidth):
 
 if __name__ == '__main__':
     # 定义文件夹路径
-    project_path = '/home/wen/catkin_ws/src/p3at_gazebo/data_space/gazebo_lidar'
+    project_path = '/home/wen/catkin_ws/src/p3at_gazebo/data_space/process_height'
     project_names = [folder for folder in os.listdir(project_path)]
     target_folders = ['lidar', 'depth_points']
     
@@ -67,6 +67,9 @@ if __name__ == '__main__':
         
         #   进入点云或者深度点云文件夹
         for target_folder_name in target_folders:
+            if not os.path.exists(os.path.join(folder_path,target_folder_name)):
+                continue
+            
             if target_folder_name=='lidar':
                 output_path = os.path.join(folder_path,'img_lidar')
                 predicte_folder_path = os.path.join(folder_path,'predictions')
@@ -76,7 +79,7 @@ if __name__ == '__main__':
             
             
             if os.path.exists(output_path):
-                print(f'exist: {project_name},{target_folder_name}')
+                print('exist: {},{}'.format(project_name, target_folder_name))
                 # continue
             
             os.makedirs(output_path,exist_ok=True)
@@ -103,7 +106,7 @@ if __name__ == '__main__':
                 
                     fig,ax = plt.subplots()
                     #   画点云俯视图,没3个点画一次
-                    draw_point_cloud(ax,points[::3],axes=[0,1],point_size=0.01,color='gray')
+                    draw_point_cloud(ax,points[::3],axes=[0,1],point_size=0.1,color='gray')
                     
                     #   画正确的结果box
                     vertices = calculateBox(*corret_result)

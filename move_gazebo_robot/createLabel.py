@@ -58,22 +58,23 @@ if __name__ == '__main__':
     x = target_position[0]
     y = target_position[1]
     
-    project_path = '/home/wen/catkin_ws/src/p3at_gazebo/data_space/gazebo_lidar'
+    project_path = '/home/wen/catkin_ws/src/p3at_gazebo/data_space/process_height'
     projects_name = os.listdir(project_path)
-    
     for project_name in projects_name:
-        if project_name not in car:
+        
+        car_name = project_name
+        if car_name not in car:
             # raise KeyError(f"The data of '{project_name}' does not exist")
-            project_name = 'suv'
-        elif project_name == 'test':
+            car_name = 'suv'
+        elif car_name == 'test':
             continue
-        target_h = car[project_name]['h']
-        target_w = car[project_name]['w']
-        target_l = car[project_name]['l']
+        target_h = car[car_name]['h']
+        target_w = car[car_name]['w']
+        target_l = car[car_name]['l']
         folders_path = os.path.join(project_path,project_name)
         createLabel(folders_path, target_h, target_w, target_l, x, y)
         evaluate_iou(folders_path)
-        drowResult(folders_path)
+        drowResult(folders_path, project_name)
         print(f'{project_name}:done')
         
         

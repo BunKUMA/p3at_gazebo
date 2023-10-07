@@ -123,7 +123,8 @@ if __name__ == "__main__":
     rospy.init_node('get_points_once')
 
     local_time = str(time.strftime('%m%d%H%M', time.localtime()))
-    savepath = '/home/wen/catkin_ws/src/p3at_gazebo/data_space/gazebo_lidar/' + local_time
+    folder_name = '1.9'
+    savepath = '/home/wen/catkin_ws/src/p3at_gazebo/data_space/camera_height/' + folder_name
     
     target_position = (11, 11)  # 目标位置
 

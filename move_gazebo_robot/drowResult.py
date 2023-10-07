@@ -48,10 +48,12 @@ def loadCoordiantes(iou_arr, path):
 
     
 # folders_path = '/home/wen/catkin_ws/src/p3at_gazebo/data_space/gazebo_lidar/volvoS90'
-def drowResult(folders_path):
+def drowResult(folders_path, project_name):
     input_iou_name = ['iou', 'iou_dep']
     for iou_name in input_iou_name:
         iou_path = os.path.join(folders_path, iou_name+'.txt')
+        if not os.path.exists(iou_path):
+            continue
         
         coordiantes_path = os.path.join(folders_path,'robot_coordiantes.txt')
         
@@ -87,7 +89,8 @@ def drowResult(folders_path):
         output = os.path.join(folders_path,'result_img')
         os.makedirs(output, exist_ok=True)
             
-        plt.savefig(os.path.join(output,iou_name+'.png'))
+        plt.savefig(os.path.join(output,project_name+'.png'))
+        plt.close()
         # plt.show() #图形可视化
 
 if __name__ == "__main__":

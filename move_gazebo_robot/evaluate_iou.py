@@ -36,6 +36,9 @@ def evaluate_iou(folders_path):
     output_prediction_name = ['predictions', 'predictions_depthmap']
     
     for iou_name, prediction_name in zip(output_iou_name, output_prediction_name):
+        if not os.path.exists(os.path.join(folders_path,prediction_name)):
+            continue
+        
         predicte_file_name_arr , iou_arr = [], []
         with open(os.path.join(folders_path,'label.txt')) as labels:
             # 每行遍历标签
