@@ -64,7 +64,7 @@
     <gravity>0 0 -9.8</gravity>
     <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
     <atmosphere type='adiabatic'/>
-    <physics name='default_physics' default='0' type='ode'>
+    <physics name='default_physics' default='1' type='ode'>
       <max_step_size>0.001</max_step_size>
       <real_time_factor>1</real_time_factor>
       <real_time_update_rate>1000</real_time_update_rate>
@@ -85,36 +85,72 @@
       <elevation>0</elevation>
       <heading_deg>0</heading_deg>
     </spherical_coordinates>
+    <model name='volvoS90'>
+      <static>1</static>
+      <link name='volvoS90'>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model:////benz-c63/meshes/STL/benz-c63.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://benz-c63/meshes/STL/benz-c63.stl</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>11 11 0 0 -0 0</pose>
+    </model>
     <state world_name='default'>
-      <sim_time>220 90000000</sim_time>
-      <real_time>107 760469306</real_time>
-      <wall_time>1664440816 916866432</wall_time>
-      <iterations>98664</iterations>
-      <model name='VolvoS90'>
-        <pose frame=''>-1.49065 5.38743 0 0 -0 0</pose>
-        <scale>1 1 1</scale>
-        <link name='VolvoS90'>
-          <pose frame=''>-1.49065 5.38743 0 0 -0 0</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-      </model>
-      <model name='car_dodge'>
-        <pose frame=''>3.43511 0.320751 -0.217049 0 -0 0</pose>
-        <scale>1 1 1</scale>
-        <link name='car_dodge'>
-          <pose frame=''>3.43511 0.320751 -0.217049 0 -0 0</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-      </model>
+      <sim_time>2556 415000000</sim_time>
+      <real_time>2036 963829880</real_time>
+      <wall_time>1700808837 288544235</wall_time>
+      <iterations>2025287</iterations>
       <model name='ground_plane'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
           <pose frame=''>0 0 0 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='suv'>
+        <pose frame=''>1.321 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='suv'>
+          <pose frame=''>1.321 0 0 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='volvoS90'>
+        <pose frame=''>-1.297 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='volvoS90'>
+          <pose frame=''>-1.297 0 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -126,18 +162,18 @@
     </state>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose frame=''>-10.5075 -0.181212 8.12296 0 0.603643 0.216182</pose>
+        <pose frame=''>-1.83095 -16.3715 6.66061 0 0.292463 1.4837</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
     </gui>
-    <model name='VolvoS90'>
+    <model name='suv'>
       <static>1</static>
-      <link name='VolvoS90'>
+      <link name='suv'>
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>model://VolvoS90/meshes/STL/VolvoS90.stl</uri>
+              <uri>model://suv/meshes/STL/suv.stl</uri>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -157,7 +193,7 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>model://VolvoS90/meshes/STL/VolvoS90.stl</uri>
+              <uri>model://suv/meshes/STL/suv.stl</uri>
             </mesh>
           </geometry>
         </visual>
@@ -165,43 +201,7 @@
         <enable_wind>0</enable_wind>
         <kinematic>0</kinematic>
       </link>
-      <pose frame=''>-1.49065 5.38743 0 0 -0 0</pose>
-    </model>
-    <model name='car_dodge'>
-      <static>1</static>
-      <link name='car_dodge'>
-        <collision name='collision'>
-          <geometry>
-            <mesh>
-              <uri>model://car_dodge/meshes/STL/dodge_demon.stl</uri>
-            </mesh>
-          </geometry>
-          <max_contacts>10</max_contacts>
-          <surface>
-            <contact>
-              <ode/>
-            </contact>
-            <bounce/>
-            <friction>
-              <torsional>
-                <ode/>
-              </torsional>
-              <ode/>
-            </friction>
-          </surface>
-        </collision>
-        <visual name='visual'>
-          <geometry>
-            <mesh>
-              <uri>model://car_dodge/meshes/STL/dodge_demon.stl</uri>
-            </mesh>
-          </geometry>
-        </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
-      </link>
-      <pose frame=''>2.2085 4.61192 0 0 -0 0</pose>
+      <pose frame=''>1.28869 0.382586 0 0 -0 0</pose>
     </model>
   </world>
 </sdf>

@@ -1,8 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="example">
 
-  <xacro:arg name="camera_height" default="1.9"/>
-
   <xacro:arg name="gpu" default="false"/>
   <xacro:property name="gpu" value="$(arg gpu)" />
   <xacro:arg name="organize_cloud" default="false"/>
@@ -14,7 +12,7 @@
   <!-- velodyne -->
   <xacro:include filename="$(find p3at_description)/urdf/velodyne.urdf.xacro"/>
   <xacro:HDL-32E parent="base_link" name="velodyne" topic="/velodyne_points" organize_cloud="${organize_cloud}" hz="10" samples="440" gpu="${gpu}">
-    <origin xyz="0 0 1.5" rpy="0 0 0" />
+    <origin xyz="0 0 1.0" rpy="0 0 0" />
   </xacro:HDL-32E>
 
   <!-- camera -->
@@ -23,17 +21,18 @@
     <origin xyz="0.0675 0.2 0.54" rpy="0 -0 1.5707" />
   </xacro:camera_rc2016>  
 
-  <!-- realsense d435
+  <!-- realsense d435 -->
   <xacro:include filename="$(find realsense_gazebo_plugin)/urdf/realsense_d435.urdf.xacro"/>
   <xacro:realsense_d435 parent="base_link">
-    <origin xyz="0.0 0 0.54" rpy="1.5707 0 1.5707" />
-  </xacro:realsense_d435> -->
+    <origin xyz="-0.0905 -0.0905 1.73" rpy="1.9633 0 1.5707" />
+                                              <!-- rpy   v    0   h -->
+  </xacro:realsense_d435>
   
-  <!-- realsense d455 -->
+  <!-- realsense d455
   <xacro:include filename="$(find realsense_gazebo_plugin)/urdf/realsense_d455.urdf.xacro"/>
   <xacro:realsense_d455 parent="base_link">
     <origin xyz="0.0 0 $(arg camera_height)" rpy="1.5707 0 1.5707" />
-  </xacro:realsense_d455>
+  </xacro:realsense_d455> -->
 
 
 

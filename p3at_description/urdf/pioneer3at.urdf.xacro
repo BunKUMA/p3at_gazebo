@@ -34,8 +34,8 @@ name="pioneer3at">
 		<inertial>
 				<!-- default -->
 				<!-- P3AT 18.6kg plus three batteries @ 2.4kg each  minus four wheels @ 1.4 kg ea and top plate @ 0.1 kg-->
-				<mass value="21.5"/> 
-				<origin xyz="-0.1 0 0.177"/>
+				<mass value="18.6"/> 
+				<origin xyz="-0.1 0 0"/>
 				<inertia ixx="0.3338" ixy="0.0"     ixz="0.0"
 								iyy="0.4783"  iyz="0.0"
 												izz="0.3338"/>
@@ -371,7 +371,7 @@ name="pioneer3at">
 <gazebo>
   <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
     <updateRate>100.0</updateRate>
-    <robotNamespace>sim_p3at</robotNamespace>
+    <robotNamespace>/</robotNamespace>
     <leftFrontJoint>p3at_front_left_wheel_joint</leftFrontJoint>
     <rightFrontJoint>p3at_front_right_wheel_joint</rightFrontJoint>
     <leftRearJoint>p3at_back_left_wheel_joint</leftRearJoint>
@@ -379,12 +379,9 @@ name="pioneer3at">
     <wheelSeparation>0.4</wheelSeparation>
     <wheelDiameter>0.215</wheelDiameter>
     <robotBaseFrame>base_link</robotBaseFrame>
-    <MaxForce>5.0</MaxForce>
-    <torque>200</torque>
-    <commandTopic>/p3at/cmd_vel</commandTopic>
-    <odometryTopic>/p3at/odom</odometryTopic>
-    <odometryFrame>odom</odometryFrame>
-    <broadcastTF>1</broadcastTF>
+    <torque>20</torque>
+    <topicName>cmd_vel</topicName>
+    <broadcastTF>false</broadcastTF>
   </plugin>
 </gazebo>
 
